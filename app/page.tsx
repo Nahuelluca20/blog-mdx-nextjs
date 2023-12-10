@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
+import ListItem from "@/components/list-item";
 
 export default function Home() {
   const blogDir = "blog";
@@ -18,31 +19,40 @@ export default function Home() {
       slug: filename.replace(".mdx", ""),
     };
   });
+
+  const sortedPosts = blogs?.sort((a, b) => {
+    if (!a.meta.date || !b.meta.date) {
+    }
+
+    const dateA = new Date(a.meta.date);
+    const dateB = new Date(b.meta.date);
+
+    if (isNaN(dateA.getTime()) || isNaN(dateB.getTime())) {
+    }
+
+    return dateB.getTime() - dateA.getTime();
+  });
+
   return (
     <main className="flex flex-col">
-      <h1 className="text-3xl font-bold">My Next.Js Blog Site</h1>
-
-      <section className="py-10">
-        <h2 className="text-2xl font-blod">Latest Blogs</h2>
-
-        <div className="py-2">
-          {blogs.map((blog) => (
-            <Link href={"/blogs/" + blog.slug} passHref key={blog.slug}>
-              <div className="py-2 flex justify-between align-middle gap-2">
-                <div>
-                  <h3 className="text-lg font-blod">{blog.meta.title}</h3>
-                  <div>
-                    <p className="text-gray-400">{blog.meta.description}</p>
-                  </div>
-                  <div className="my-auto text-gray-400">
-                    <p>{blog.meta.date}</p>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
+      <div className="border-b-2 pb-2 flex items-center justify-between text-sm text-muted-foreground font-semibold">
+        <div className="flex items-center gap-4">
+          <span className="w-[48px]">date</span>
+          <span>title</span>
         </div>
-      </section>
+        <span>tags</span>
+      </div>
+      <div className="w-full">
+        {sortedPosts?.map((post) => (
+          <ListItem
+            key={post.slug}
+            date={post?.meta.date}
+            slug={post.slug}
+            tags={post?.meta.tags}
+            title={post.meta.title}
+          />
+        ))}
+      </div>
     </main>
   );
 }
