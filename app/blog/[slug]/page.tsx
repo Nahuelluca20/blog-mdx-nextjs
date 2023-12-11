@@ -41,7 +41,7 @@ export default function Page({ params }: any) {
   const post = getPost(params);
 
   return (
-    <article className="prose prose-sm md:prose-base lg:prose-lg prose-slate dark:!prose-invert mx-auto">
+    <article className="prose prose-sm md:prose-base lg:prose-lg  dark:!prose-invert mx-auto">
       {/* @ts-ignore */}
       <MDXRemote options={options} source={post.content}></MDXRemote>
     </article>
