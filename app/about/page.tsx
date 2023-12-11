@@ -1,6 +1,6 @@
 export default function page() {
   return (
-    <div className="px-5">
+    <div>
       <h1 className="text-2xl mb-5 font-bold">About</h1>
       <div className="space-y-5 text-lg	font-medium leading-7">
         <p>
