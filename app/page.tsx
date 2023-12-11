@@ -1,8 +1,6 @@
-import Image from "next/image";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import Link from "next/link";
 import ListItem from "@/components/list-item";
 
 export default function Home() {
